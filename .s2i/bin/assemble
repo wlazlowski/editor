@@ -1,0 +1,70 @@
+#!/bin/bash
+date
+echo "--->restoring artifacts"
+BUCKET="maputnikartifacts"
+NODEVERSION=$(node --version)
+ARTIFACTS_TAR=maputnik_artifacts_${NODEVERSION}.tar.gz
+mc --quiet ls minio/${BUCKET} > /dev/null  2>&1
+
+if [ $? -ne 0 ]; then
+  mc --quiet mb minio/maputnikartifacts
+else
+  mc --quiet cp minio/${BUCKET}/${ARTIFACTS_TAR} .
+fi
+
+#if [ -f ${ARTIFACTS_TAR} ]; then
+#  tar -xzf ${ARTIFACTS_TAR}
+#  rm -f ${ARTIFACTS_TAR}
+#fi
+
+date
+echo "pwd"
+pwd
+
+echo "ls -lh"
+ls -lh
+
+echo "ls -lh /tmp"
+ls -lh /tmp
+
+echo "---> Installing application"
+echo "---> Listing all files under /tmp/src"
+ls -lh /tmp/src
+
+date
+echo "cp -r /tmp/src/* ."
+cp -r /tmp/src/* .
+
+echo "npm --version"
+/opt/app-root/src/.npm-global/bin/npm --version
+
+echo "node --version"
+node --version
+date
+echo "npm install"
+/opt/app-root/src/.npm-global/bin/npm install
+date
+echo "npm run build"
+/opt/app-root/src/.npm-global/bin/npm run build
+date
+# run linter
+echo "npm run lint"
+npm run lint
+date
+echo "npm run lint-styles"
+npm run lint-styles
+
+echo "saving artifacts in object store"
+if [ -d /opt/app-root/src/node_modules ]; then
+    # all deps contents to tar stream
+    tar cfz ${ARTIFACTS_TAR} node_modules
+    mc --quiet cp ${ARTIFACTS_TAR} minio/${BUCKET}/${ARTIFACTS_TAR}
+    rm -f ${ARTIFACTS_TAR}
+fi
+
+echo "removing everything unnecessary before pushing"
+echo "rm -r /tmp/src"
+
+rm -r /tmp/src
+
+date

@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "---> Starting application"
+cd /opt/app-root/src
+
+#NODE_ENV=${ENVIRONMENT} PORT=${COREFRONT_SERVICE_PORT} indexGateway=http://index-gateway:${INDEX_GATEWAY_SERVICE_PORT} qmCount=http://qm-count:${QM_COUNT_SERVICE_PORT} node app.js
+SERVER_RENDERING=1 APP_ENV=${ENVIRONMENT} NODE_ENV=${ENVIRONMENT} PORT=${COREFRONT_REACT_SERVICE_PORT} BABEL_DISABLE_CACHE=1 node build/server/app.js
