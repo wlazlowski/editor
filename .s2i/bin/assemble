@@ -44,15 +44,15 @@ date
 echo "npm install"
 /opt/app-root/src/.npm-global/bin/npm install
 date
-echo "npm run build"
-/opt/app-root/src/.npm-global/bin/npm run build
-date
+#echo "npm run build"
+#/opt/app-root/src/.npm-global/bin/npm run build
+#date
 # run linter
-echo "npm run lint"
-npm run lint
-date
-echo "npm run lint-styles"
-npm run lint-styles
+#echo "npm run lint"
+#npm run lint
+#date
+#echo "npm run lint-styles"
+#npm run lint-styles
 
 echo "saving artifacts in object store"
 if [ -d /opt/app-root/src/node_modules ]; then
