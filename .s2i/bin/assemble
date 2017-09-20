@@ -44,8 +44,8 @@ date
 echo "npm install"
 /opt/app-root/src/.npm-global/bin/npm install
 date
-#echo "npm run build"
-#/opt/app-root/src/.npm-global/bin/npm run build
+echo "npm run build"
+/opt/app-root/src/.npm-global/bin/npm run build
 #date
 # run linter
 #echo "npm run lint"
