@@ -44,6 +44,10 @@ date
 echo "npm install"
 /opt/app-root/src/.npm-global/bin/npm install
 date
+echo "creating ./public folder"
+mkdir /opt/app-root/src/public
+chmod g+rwx /opt/app-root/src/public 
+date
 echo "npm run build"
 /opt/app-root/src/.npm-global/bin/npm run build
 #date
