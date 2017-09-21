@@ -41,15 +41,21 @@ echo "npm --version"
 echo "node --version"
 node --version
 date
+
 echo "npm install"
-/opt/app-root/src/.npm-global/bin/npm install
+#/opt/app-root/src/.npm-global/bin/npm install
+npm install
 date
-echo "npm run build"
-/opt/app-root/src/.npm-global/bin/npm run build
 date
+
 echo "creating ./public folder"
 mkdir /opt/app-root/src/public
-chmod -R g+rwx /opt/app-root/src
+#chmod -R g+rwx /opt/app-root/src
+date
+
+echo "npm run build"
+#/opt/app-root/src/.npm-global/bin/npm run build
+npm build
 date
 # run linter
 #echo "npm run lint"
